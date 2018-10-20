@@ -2,24 +2,5 @@
 
 A small non-motivating example:
 
-```ts
-class A {
-  readonly kind = "a";
-  something = "Hello, World!";
-}
-class B {
-  readonly kind = "b";
-  other = "G'day, mate!";
-}
-
-const match = createMatcher("kind", {
-  a: (input: A) => input.something,
-  b: (input: B) => input.other
-});
-const greeting = match(new A(), {
-  a: v => "Kind A says: " + v,
-  b: v => "Kind B says: " + v
-});
-console.log(greeting);  // Kind A says: Hello, World!
-```
+![An animated GIF showcasing the features](https://user-images.githubusercontent.com/19776768/47261592-06189200-d4db-11e8-8c7d-b4c8d7efbe3e.gif)
 
