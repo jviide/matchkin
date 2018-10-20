@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "strict": true,
+    "declaration": true,
+    "outDir": "./dist/commonjs",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"]
+}
