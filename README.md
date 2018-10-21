@@ -2,7 +2,7 @@
 
 **matchkin** is a TypeScript library that aims to provide a form of matching that can be statically proven to be *exhaustive*. Exhaustive in this context means that all possible values get handled (as far as we don't deliberately escape the sweet embrace of the type system).
 
-For example [this article](http://ideasintosoftware.com/exhaustive-switch-in-typescript/) outlines one way to achieve pretty much the same thing with switch statements. The switch statements can get statically checked for unexpected values, so you're protected from matching against `"hambugre"` instead of `"hamburger"`. However matchkin does offer some extras:
+For example [this article](http://ideasintosoftware.com/exhaustive-switch-in-typescript/) outlines one way to achieve pretty much the same thing with switch statements. The switch statements can get statically checked for unexpected values, so you're protected from matching against `"hambugre"` instead of `"hamburger"`. However matchkin does offer some extra niceties:
 
  * **Never forget the default block.** If the type checker sees that all possibilities aren't explicitly covered then the default fallback is required. Note that e.g. [TSLint](https://palantir.github.io/tslint/) can be configured to require default blocks in all switch statements. However...
  * **No gratuitous default blocks.** If the type system in convinced that you're handling all cases then the default fallback is forbidden.
