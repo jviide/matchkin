@@ -1,6 +1,6 @@
 # matchkin [![CircleCI](https://circleci.com/gh/jviide/matchkin.svg?style=shield)](https://circleci.com/gh/jviide/matchkin)
 
-**matchkin** is a TypeScript library that aims to provide a form of matching that can be statically proven to be _exhaustive_. Exhaustive in this context means that all possible values get handled (as long as we don't deliberately escape the sweet embrace of the type system).
+**matchkin** is a TypeScript library for creating value matchers that can be statically proven to be _exhaustive_. Exhaustive in this context means that all possible values get handled (as long as we don't deliberately escape the sweet embrace of the type system).
 
 For example [this article](http://ideasintosoftware.com/exhaustive-switch-in-typescript/) outlines a good way to achieve pretty much the same thing with switch statements. The switch statements can get statically checked for unexpected values, so you're protected from matching against `"hambugre"` instead of `"hamburger"`. However matchkin does offer some extra niceties:
 
@@ -8,7 +8,7 @@ For example [this article](http://ideasintosoftware.com/exhaustive-switch-in-typ
 - **No gratuitous default blocks.** If the type system in convinced that you're handling all cases then the default fallback is forbidden.
 - **Ensure that this all can be checked statically.** Moving up one meta level. Matchers are created by calling `createMatcher(...)`. Those calls also get statically checked to make sure that the above checks can be performed for the resulting matcher.
 
-Of course there are negative sides:
+Of course for these pros there are cons:
 
 - Some more ceremony when creating a matching function using `createMatcher`. Though hopefully that's an one-time investment.
 - The library currently supports discriminating types by [literal string types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions) only.
