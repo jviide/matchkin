@@ -1,6 +1,6 @@
-# matchkin
+# matchkin [![CircleCI](https://circleci.com/gh/jviide/matchkin.svg?style=shield)](https://circleci.com/gh/jviide/matchkin)
 
-**matchkin** is a TypeScript library that aims to provide a form of matching that can be statically proven to be _exhaustive_. Exhaustive in this context means that all possible values get handled (as far as we don't deliberately escape the sweet embrace of the type system).
+**matchkin** is a TypeScript library that aims to provide a form of matching that can be statically proven to be _exhaustive_. Exhaustive in this context means that all possible values get handled (as long as we don't deliberately escape the sweet embrace of the type system).
 
 For example [this article](http://ideasintosoftware.com/exhaustive-switch-in-typescript/) outlines a good way to achieve pretty much the same thing with switch statements. The switch statements can get statically checked for unexpected values, so you're protected from matching against `"hambugre"` instead of `"hamburger"`. However matchkin does offer some extra niceties:
 
@@ -81,7 +81,7 @@ match(
 );
 ```
 
-Either all cases must be explicitly handled _or_ there has to be a default fallback (but not both at the same time). Also extra cases, such as `pony: name => ...` are not allowed.
+Either all cases must be explicitly handled _or_ there has to be a default fallback (but not both at the same time). Also extra cases, such as `pony: name => ...`, are not allowed.
 
 ## License
 
