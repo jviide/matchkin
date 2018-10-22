@@ -26,9 +26,73 @@ $ yarn add matchkin
 
 ## Usage
 
+First import the function `createMatcher`.
+
 ```ts
 import { createMatcher } from "matchkin";
 ```
+
+Assume we have these two types.
+
+```ts
+class Cat {
+  readonly species = "cat";
+}
+class Dog {
+  readonly species = "dog";
+}
+```
+
+To create a matcher we can do this:
+
+```ts
+const match = createMatcher(
+  "species", 
+  {
+    cat: (c: Cat) => "kitty",
+    dog: (d: Dog) => "doggy"
+  }
+);
+```
+
+Here the value `"species"` is the name of the property that `match` can use to 
+discriminate between values of type `Cat | Dog`. The type of this argument 
+has to be a single string literal. Luckily for us its type is `"species"` as well.
+
+The second argument is an object, its properties listing all the possible
+species `match` must handle. The property values are functions that take 
+one argument: a matched instance. Their types have to be consistent
+with the corresponding property name - for example `dog: (c: Cat) => c` is
+an error, because the `"species"` property of `Cat`s is `"cat"`, not `"dog"`.
+
+In the end `createMatcher` returns a function we here call `match`, which we can
+use in two ways. First we can explicitly list all possibilities:
+
+```ts
+const pet: Cat | Dog = ...
+
+match(pet, {                      // Returns either
+  cat: name => `Bad ${name}`,     // "Bad kitty" or
+  dog: name => `Good ${name}`     // "Good doggy"
+});
+```
+
+Or we can list just some of the possibilities and provide a fallback for
+the non-listed ones:
+
+```ts
+match(                            // Returns either
+  pet,                            // "Good doggy" or
+  {                               // "Some other being"
+    dog: name => `Good ${name}`
+  },
+  () => "Some non-dog"
+)
+```
+
+Either all cases must be explicitly handled *or* there has to be a default
+fallback (but not both at the same time). Also extra cases, such as 
+`pony: name => `Pretty ${name}` are not allowed.
 
 ## License
 
