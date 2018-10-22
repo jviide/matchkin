@@ -16,7 +16,7 @@ Of course there are negative sides:
 
 Here's an animated GIF that demonstrates the features:
 
-![An animated GIF showcasing the features](https://user-images.githubusercontent.com/19776768/47261592-06189200-d4db-11e8-8c7d-b4c8d7efbe3e.gif)
+![An animated GIF showcasing the features](https://user-images.githubusercontent.com/19776768/47274672-40a02e80-d5b0-11e8-94b2-3535101f08e5.gif)
 
 ## Installation
 
