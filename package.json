@@ -9,7 +9,8 @@
   "sideEffects": false,
   "scripts": {
     "test": "tsc --noEmit --skipLibCheck && mocha --require ts-node/register test/**/*.test.ts",
-    "build": "rm -rf dist && tsc && tsc --outDir ./dist/module --module es2015"
+    "build": "rm -rf dist && tsc && tsc --outDir ./dist/module --module es2015",
+    "prepublishOnly": "yarn run build"
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",
