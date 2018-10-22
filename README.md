@@ -32,7 +32,7 @@ First import the function `createMatcher`.
 import { createMatcher } from "matchkin";
 ```
 
-Assume we have these two types.
+Assume we have these two types:
 
 ```ts
 class Cat {
