@@ -1,22 +1,26 @@
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-function preserve(obj: { [K: string]: any }) {
+function preserve(obj: { [K: string]: unknown }) {
   const result = Object.create(null);
-  for (const key in obj) {
-    if (hasOwnProperty.call(obj, key)) {
-      result[key] = obj[key];
-    }
-  }
+  Object.keys(obj).forEach(key => {
+    result[key] = obj[key];
+  });
+  Object.getOwnPropertySymbols(obj).forEach(key => {
+    result[key] = obj[key as any];
+  });
   return Object.freeze(result);
 }
 
-// A roundabout way to ensure that T is a single string literal.
-// For example type AssertSingleLiteralString<"hello"> == unknown,
-// while AssertSingleLiteralString<"hello" | "world"> == never.
-type AssertSingleLiteralString<T> = T extends string
-  ? (string extends T
-      ? never
-      : (1 extends { [K in T]: T extends K ? 0 : 1 }[T] ? never : unknown))
+type IndexType = keyof any;
+
+// A roundabout way to ensure that T is a single literal that is
+// either also string | number | symbol.
+// For example type AssertSingleLiteralIndex<"hello"> == unknown,
+// while AssertSingleLiteralIndex<1 | 2> == never.
+type AssertSingleLiteralIndex<T extends IndexType, U = T> = {
+  [K in T]: Exclude<U, K>
+}[T] extends never
+  ? unknown
   : never;
 
 // Ensure that every key in KindDict corresponds to its input type.
@@ -29,10 +33,10 @@ type AssertConsistentKinds<KindKey, KindDict> = {
 };
 
 export function createMatcher<
-  KindKey extends string,
+  KindKey extends IndexType,
   KindDict extends { [K: string]: (v: any) => any }
 >(
-  kindKey: KindKey & AssertSingleLiteralString<KindKey>,
+  kindKey: KindKey & AssertSingleLiteralIndex<KindKey>,
   kindDict: KindDict & AssertConsistentKinds<KindKey, KindDict>
 ) {
   const kinds = preserve(kindDict);
@@ -81,8 +85,8 @@ export function createMatcher<
   ): Output<Options> | (Default extends () => infer O ? O : never);
   function match(matched: any, options: any, defaultTo?: any) {
     const kind = matched[kindKey];
-    const handler = hasOwnProperty.call(options, kind) ? options[kind] : null;
-    if (handler) {
+    if (hasOwnProperty.call(options, kind)) {
+      const handler = options[kind];
       return handler(kinds[kind](matched));
     }
     if (defaultTo) {
