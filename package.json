@@ -5,12 +5,12 @@
   "license": "MIT",
   "repository": "jviide/matchkin",
   "homepage": "https://github.com/jviide/matchkin",
-  "main": "dist/commonjs/index.js",
-  "module": "dist/module/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "sideEffects": false,
   "scripts": {
-    "test": "tsc --noEmit --skipLibCheck && mocha --require ts-node/register test/**/*.test.ts",
-    "build": "rm -rf dist && tsc && tsc --outDir ./dist/module --module es2015",
+    "test": "tsc --noEmit --skipLibCheck && TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --require ts-node/register test/**/*.test.ts",
+    "build": "rm -rf dist && microbundle --format es,cjs",
     "prepublishOnly": "yarn run build"
   },
   "devDependencies": {
@@ -18,6 +18,7 @@
     "@types/mocha": "^5.2.5",
     "chai": "^4.2.0",
     "dtslint": "^0.3.0",
+    "microbundle": "^0.7.0",
     "mocha": "^5.2.0",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.3"
