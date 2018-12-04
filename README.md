@@ -11,7 +11,7 @@ For example [this article](http://ideasintosoftware.com/exhaustive-switch-in-typ
 Of course for these pros there are cons:
 
 - Some more ceremony when creating a matching function using `createMatcher`. Though hopefully that's an one-time investment.
-- The library currently supports discriminating types by [literal string types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions) only.
+- The library currently supports discriminating types by [literal string, number and symbol types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions) only.
 - Hurrah, yet another library to include to your project!
 
 Here's an animated GIF that demonstrates the features:
